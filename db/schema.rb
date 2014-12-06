@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20141205230600) do
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "message_text"
+    t.text     "message_text"
     t.integer  "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20141205230600) do
     t.string   "referrer_last_name"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "maker_city"
   end
 
   create_table "photos", :force => true do |t|
