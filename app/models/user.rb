@@ -27,13 +27,14 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
   validates_uniqueness_of :email, :case_sensitive => false, :message => 'email is already in use'
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'must be a valid email address.'
   validates_confirmation_of :password
+  validates_presence_of :city
 
   validates :terms_of_service, acceptance: true
   validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }}
