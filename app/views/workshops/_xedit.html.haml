@@ -176,6 +176,8 @@
                     = editable_link_to "State", field: :location_state, resource: @workshop, type: :text
                   #zip.field.address
                     = editable_link_to "Zip", field: :location_zipcode, resource: @workshop, type: :text
+                  - if show
+                    = link_to "Map", "https://www.google.com/maps/search/" + @workshop.google_address, target: "_blank"
                   %br
 
             %dt
