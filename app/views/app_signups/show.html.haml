@@ -79,6 +79,7 @@
               .span4.details At this location:
               .span7.details
                 = @app_signup.interviews.last.interview_location
+                = link_to "Map", "https://www.google.com/maps/search/" + @app_signup.interviews.last.interview_location, :onclick => "window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" 
 
               .span4.details Choose a date and time (one hour):
               .span7.details

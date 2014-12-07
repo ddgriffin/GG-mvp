@@ -40,5 +40,10 @@ class StaticPagesController < ApplicationController
   def get_involved_girls
   end
 
+  def map
+    if params[:address]
+      @address = params[:address]
+    end
+  end
 
 end
