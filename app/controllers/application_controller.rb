@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   after_filter :store_location
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:city) }
+  end
+
   def store_location
    if (!request.fullpath.match("/users") &&
     !request.xhr?) # don't store ajax calls
