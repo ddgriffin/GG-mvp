@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   validates_presence_of :city
 
   validates :terms_of_service, acceptance: true
-  validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }}
+  validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }, :message => 'You must be at least 13 years old.'}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
