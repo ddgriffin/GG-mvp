@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false, :message => 'email is already in use'
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'must be a valid email address.'
   validates_confirmation_of :password
-  validates_presence_of :city
+  # validates_presence_of :city
 
   validates :terms_of_service, acceptance: true
   validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }, :message => 'You must be at least 13 years old.'}
