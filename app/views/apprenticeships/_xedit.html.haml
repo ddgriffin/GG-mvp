@@ -280,6 +280,18 @@
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools that she can show off in her portfolio!"} }
                   %i.fa.fa-question-circle.small-icon
 
+            - if !@apprenticeship.requirement_list.empty?
+              %dt
+                Requirements
+              %dd
+                #prequisites.field.tags.optional
+                  = editable_link_to '(Optional) Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
+            /     - if !show
+            /       %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Will this apprenticeship be doable for someone without certain skills, or are there related skills that would be helpful to have beforehand? Note: We generally do not accept proposals that request someone have the exact skills you're planning to teach so that we can guarantee an equitable trade."} }
+            /         %i.fa.fa-question-circle.small-icon
+
+
+
             / - if !show || !@apprenticeship.requirement_list.empty?
             /   %dt
             /     Requirements
@@ -289,6 +301,7 @@
             /     - if !show
             /       %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Will this apprenticeship be doable for someone without certain skills, or are there related skills that would be helpful to have beforehand? Note: We generally do not accept proposals that request someone have the exact skills you're planning to teach so that we can guarantee an equitable trade."} }
             /         %i.fa.fa-question-circle.small-icon
+
 
 
             - if current_user
