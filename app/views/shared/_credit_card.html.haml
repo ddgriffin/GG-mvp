@@ -1,12 +1,5 @@
 - unless paid
 
-  #stripe_error.alert.alert-error{:style => "display:none;"}
-    %strong Processing error!
-    %span.message
-
-  #stripe_error
-    %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
-
   = render(partial: 'shared/credit_card_form')
 
 - else
