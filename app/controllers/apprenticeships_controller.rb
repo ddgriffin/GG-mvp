@@ -20,16 +20,15 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def new
+    @nomination = Nomination.new
   end
-
-
 
 #---- create
   def create
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "2", featured: false)
+      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Craft', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "14", age_max: "100", registration_max: "2", featured: false)
     end
     @apprenticeship.begins_at ||= Date.today + 7.day
     @apprenticeship.ends_at ||= Date.tomorrow + 97.day
@@ -89,15 +88,17 @@ class ApprenticeshipsController < ApplicationController
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
 
-        elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
-          if @apprenticeship.process_payment
-            @apprenticeship.submit
-            @apprenticeship.deliver
-            redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
-          else
-            Rails.logger.info("This will end up in papertrail: #{current_user} ")
-            Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
-            redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
+        elsif params[:apprenticeship][:stripe_card_token]
+          if ( params[:apprenticeship][:stripe_card_token] != "" ) || @apprenticeship.user.stripe_customer_id.present?
+            if @apprenticeship.save_payment_info
+              @apprenticeship.submitted
+              @apprenticeship.deliver
+              redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
+            else
+              Rails.logger.info("This will end up in papertrail: #{current_user} ")
+              Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
+              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your billing information: #{@apprenticeship.errors.full_messages}" } and return
+            end
           end
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
@@ -231,6 +232,12 @@ class ApprenticeshipsController < ApplicationController
 
   def set_featured_listing
     @apprenticeship.toggle!(:featured) and return
+    rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
   end
 
   def show
@@ -295,10 +302,10 @@ class ApprenticeshipsController < ApplicationController
 
   def payment
     unless @apprenticeship.group_valid?(:design)
-      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
+      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
     end
     unless @apprenticeship.group_valid?(:private)
-      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
+      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
     end
   end
 

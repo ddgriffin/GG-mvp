@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
                   :location_address, :location_address2, :location_city, :location_state, :location_zipcode,
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
                   :registration_min, :registration_max, :price, :respect_my_style, :gender, :reject_reason, :revoke_reason,
-                  :state, :legal_name, :featured
+                  :state, :legal_name, :featured, :coupon
 
   def generate_title
     self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
@@ -55,35 +55,28 @@ class Event < ActiveRecord::Base
      write_attribute(:ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
-  def should_validate_begins_at?
-    :tba_is_blank && (self.started? || self.pending?)
-  end
-
-  def process_payment
-    logger.info "Processing payment"
-    unless charge_id.present?
-      charge = Stripe::Charge.create(
-        :amount => 3000, # amount in cents, again
-        :currency => "usd",
+  def save_payment_info
+    logger.info "Saving payment info"
+    if user.stripe_customer_id.present?
+      logger.info "Customer already exists"
+    else
+      logger.info "Creating customer"
+      customer = Stripe::Customer.create(
         :card => stripe_card_token,
-        :description => "Apprenticeship payment from #{self.user.email}"
+        :description => user.email
       )
-      logger.debug(charge)
-      update_attribute(:charge_id, charge.id)
-      logger.info "Processed payment #{charge.id}"
+      x = customer.id
+      self.user.stripe_customer_id = x
+      self.user.save!
     end
-  rescue Stripe::CardError => e
-    logger.error "Stripe error while creating charge: #{e.message}"
-    errors.add :base, e.message
-    false
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating charge: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    false
   end
 
   def tba_is_blank
     datetime_tba.blank?
+  end
+
+  def should_validate_begins_at?
+    :tba_is_blank && (self.started? || self.pending?)
   end
 
   def residential
@@ -131,23 +124,18 @@ class Event < ActiveRecord::Base
     end
 
     state :pending do
-
     end
 
     state :accepted do
-
     end
 
     state :canceled do
-
     end
 
     state :filled do
-
     end
 
     state :completed do
-
     end
 
     event :reject do
@@ -162,7 +150,7 @@ class Event < ActiveRecord::Base
       transition :accepted => :started
     end
 
-    event :submit do
+    event :submitted do
       transition :started => :pending
     end
 
@@ -182,12 +170,12 @@ class Event < ActiveRecord::Base
       transition :accepted => :filled
     end
 
-    event :complete do
-      transition :all => :completed
-    end
-
     event :reopen do
       transition :filled => :accepted
+    end
+
+    event :complete do
+      transition :all => :completed
     end
 
   end
