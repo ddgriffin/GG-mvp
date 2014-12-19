@@ -82,6 +82,8 @@ GirlsGuild::Application.routes.draw do
     get 'static_pages/thanks', :on => :collection
   end
 
+  resources :nominations, only: [:new, :create, :destroy]
+
   match '/dashboard', to: 'dashboards#display'
   match '/admin', to: 'dashboards#admin'
   match '/metrics', to: 'dashboards#metrics'
@@ -101,6 +103,7 @@ GirlsGuild::Application.routes.draw do
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/nominate', to: 'static_pages#nominate'
   match '/thankyou', to: 'static_pages#thankyou'
   match '/newsletter', to: 'static_pages#newsletter'
   match '/get_involved_girls', to: 'static_pages#get_involved_girls'
@@ -109,6 +112,7 @@ GirlsGuild::Application.routes.draw do
   match '/privacypolicy', to:'static_pages#privacypolicy'
   match '/copyrightpolicy', to: 'static_pages#copyrightpolicy'
   match '/termsandconditions', to:'static_pages#termsandconditions'
+  match '/map', to:'static_pages#map'
 
 
   unless Rails.application.config.consider_all_requests_local

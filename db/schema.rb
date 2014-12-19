@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141006155350) do
+ActiveRecord::Schema.define(:version => 20141205230600) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20141006155350) do
     t.string   "legal_name"
     t.boolean  "help_posting_sent",                                :default => false,     :null => false
     t.boolean  "featured"
+    t.string   "coupon"
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
@@ -120,11 +121,22 @@ ActiveRecord::Schema.define(:version => 20141006155350) do
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "message_text"
+    t.text     "message_text"
     t.integer  "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "interview_id"
+  end
+
+  create_table "nominations", :force => true do |t|
+    t.string   "maker_first_name"
+    t.string   "maker_last_name"
+    t.string   "maker_email"
+    t.string   "referrer_first_name"
+    t.string   "referrer_last_name"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "maker_city"
   end
 
   create_table "photos", :force => true do |t|
@@ -249,6 +261,7 @@ ActiveRecord::Schema.define(:version => 20141006155350) do
     t.string   "facebook"
     t.string   "twitter"
     t.string   "stripe_customer_id"
+    t.string   "city"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
