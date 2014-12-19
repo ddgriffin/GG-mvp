@@ -209,6 +209,7 @@
                     %i.fa.fa-question-circle.small-icon
                   %br
 
+              %br
               - if !show || !@apprenticeship.location_private || current_user && (current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user)
                 #address
                   #address1.field.address
@@ -220,9 +221,8 @@
                     = editable_link_to "State", field: :location_state, resource: @apprenticeship, type: :text
                   #zip.field.address
                     = editable_link_to "Zip", field: :location_zipcode, resource: @apprenticeship, type: :text
-                  %br
-
-
+                  - if show
+                    = link_to "Map", "https://www.google.com/maps/search/" + @apprenticeship.google_address, target: "_blank"
             %dt
               - if !show
                 %i.fa.fa-asterisk

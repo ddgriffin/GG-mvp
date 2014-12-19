@@ -44,5 +44,4 @@ class StaticPagesController < ApplicationController
   def get_involved_girls
   end
 
-
 end
