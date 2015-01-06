@@ -104,6 +104,7 @@ GirlsGuild::Application.routes.draw do
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
   match '/nominate', to: 'static_pages#nominate'
+  match '/nominate_apprentice', to: 'static_pages#nominate_apprentice'
   match '/thankyou', to: 'static_pages#thankyou'
   match '/newsletter', to: 'static_pages#newsletter'
   match '/get_involved_girls', to: 'static_pages#get_involved_girls'

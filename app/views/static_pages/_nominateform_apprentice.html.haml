@@ -1,8 +1,8 @@
-/ app/views/static_pages/_nominateform.html.haml
+/ app/views/static_pages/_nominateform-apprentice.html.haml
 = simple_form_for nomination, html: {class: "form-horizontal"}, validate: true do |f|
   %fieldset
-    / this is a hidden boolean field that submits saying this person has been nominated as a Maker
-    = f.hidden_field :maker_type, value: "Maker"
+    / this is a hidden boolean field that submits saying this person has been nominated as an Apprentice
+    = f.hidden_field :maker_type, value: "Apprentice"
 
     .control-group
       = f.label :maker_first_name, class: "control-label", label: "Nominee's First Name"
