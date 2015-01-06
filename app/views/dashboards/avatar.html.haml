@@ -11,25 +11,16 @@
           /%h2 Profile
           = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
 
-            /= f.input :craft
+            = f.input :craft, label: "Your craft(s)?", placeholder: "Ex: Woodworking"
 
-            /= f.input :business
+            = f.input :learning_goals, label: "Craft(s) you want to learn?", placeholder: "Ex: Welding, Typography, Shoemaking"
 
-            /= f.input :learn-wants
+            = f.input :maker_crush, label: "Know someone you'd like to work with already?", placeholder: "Ex: Natalie Davis of Canoe"
 
-            /= f.input :nominate
-
-            /= f.input :photos
-
-
-            = f.input :website
+            = f.input :website, placeholder: "Ex: www.girlsguild.com"
 
             /= f.input :webshop
-
-            = f.input :bio, :as => :text, :input_html => {:rows => 8}
-
-            = f.input :facebook
-
-            = f.input :twitter
+            /= f.input :business
+            /= f.input :photos
 
             = render 'avatar_fields', f: f
