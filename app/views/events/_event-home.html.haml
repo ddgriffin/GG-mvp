@@ -20,8 +20,8 @@
                   &nbsp;
                   = event.spots_left
                 - elsif event.filled? || event.completed?
-                  &nbsp;
-                  %b Closed
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Closed
 
             - unless current_user.blank?
               - if event.user == current_user
