@@ -23,6 +23,10 @@ class StaticPagesController < ApplicationController
     @nomination = Nomination.new
   end
 
+  def nominate_apprentice
+    @nomination = Nomination.new
+  end
+
   def newsletter
   end
 
@@ -43,6 +47,5 @@ class StaticPagesController < ApplicationController
 
   def get_involved_girls
   end
-
 
 end

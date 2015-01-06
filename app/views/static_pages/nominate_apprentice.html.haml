@@ -1,0 +1,21 @@
+- provide(:title, 'Nominate an Apprentice')
+
+%section.section
+  .container
+    .page-header
+      %h1
+        Nominate an Apprentice
+        %small / &nbsp; Know someone who's creative and loves to learn, or interested yourself?
+    .row-fluid
+      .span6
+        %br
+        %ul.icons
+          %li
+            %p
+              %i.fa.fa-heart
+              Let us know who you think would love to be an Apprentice and we'll do the rest!
+
+
+      .span6
+        = render 'static_pages/nominateform_apprentice', :nomination => @nomination
+
