@@ -7,7 +7,7 @@
 
       .span10.pull-right
         .fancyform-light.form-horizontal
-          %h2 Tell us about your interests
+          %h2 Profile
           /%h2 Profile
           = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
 
@@ -15,9 +15,20 @@
 
             = f.input :learning_goals, label: "Craft(s) you want to learn?", placeholder: "Ex: Welding, Typography, Shoemaking"
 
-            = f.input :maker_crush, label: "Know someone you'd like to work with already?", placeholder: "Ex: Natalie Davis of Canoe"
+            = f.input :city
+
+            = f.input :bio, :as => :text, :input_html => {:rows => 8}
+
+            = f.input :facebook
+
+            = f.input :twitter
+
+            / = f.input :maker_crush, label: "Know someone you'd like to work with already?", placeholder: "Ex: Natalie Davis of Canoe"
 
             = f.input :website, label: "Your website", placeholder: "Ex: www.girlsguild.com"
+
+
+
 
             /= f.input :webshop
             /= f.input :business
