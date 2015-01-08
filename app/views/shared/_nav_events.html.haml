@@ -5,7 +5,9 @@
   /= active_link_to( 'Makers', makers_path, :wrap_tag => :li, :active => :exclusive )
   /= active_link_to( 'All Events', events_path, :wrap_tag => :li, :active => :exclusive )
 
-  %a.filter_austin
-    Austin
-  %a.filter_houston
-    Houston
+  %li
+    %a.filter_austin
+      Austin
+  %li
+    %a.filter_houston
+      Houston
