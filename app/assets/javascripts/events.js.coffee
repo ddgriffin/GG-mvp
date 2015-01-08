@@ -8,8 +8,8 @@ jQuery ->
 
 jQuery ->
   $(".filter_austin").click ->
-    $("#all_events").show()
+    $("#austin_events").show()
     $("#houston_events").hide()
   $(".filter_houston").click ->
     $("#houston_events").show()
-    $("#all_events").hide()
+    $("#austin_events").hide()
