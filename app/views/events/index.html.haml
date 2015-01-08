@@ -41,20 +41,34 @@
                       %p
                         We'll keep track of the skills, tools, and techniques you're learning to begin to build out an incredible portfolio. You may even consider hosting a workshop or apprenticeship yourself!
 
-    .row
-      - unless @events.blank?
-        = render 'event', events: @events
-      - unless @tba_events.blank?
-        = render 'event', events: @tba_events
-      - unless @filled_events.blank?
-        = render 'event', events: @filled_events
-    %br
-    %br
-    %h1 Past Events
-    %br
-    %br
-    .row
-      - unless @closed_events.blank?
-        = render 'event', events: @closed_events
+    #all_events
+      .row
+        - unless @events.blank?
+          = render 'event', events: @events
+        - unless @filled_events.blank?
+          = render 'event', events: @filled_events
+      %br
+      %br
+      %h1 Past Events
+      %br
+      %br
+      .row
+        - unless @closed_events.blank?
+          = render 'event', events: @closed_events
+
+    #houston_events
+      .row
+        - unless @houston_events.blank?
+          = render 'event', events: @houston_events
+        - unless @filled_houston_events.blank?
+          = render 'event', events: @filled_houston_events
+      %br
+      %br
+      %h1 Past Events
+      %br
+      %br
+      .row
+        - unless @closed_houston_events.blank?
+          = render 'event', events: @closed_houston_events
 
 
