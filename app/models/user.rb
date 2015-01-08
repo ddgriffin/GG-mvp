@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :ip_address, :latitude, :longitude
 
-  geocoded_by :ip_address
-    #:latitude => :lat, :longitude => :lon
-  before_validation :geocode
+  geocoded_by :ip_address,
+    :latitude => :latitude, :longitude => :longitude
+  after_validation :geocode
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
