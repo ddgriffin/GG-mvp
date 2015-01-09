@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 
   geocoded_by :ip_address
     #:latitude => :latitude, :longitude => :longitude
-  after_validation :geocode
+  after_validation :geocode, if: ->(obj){ obj.ip_address.present? and obj.ip_address_changed? }
+
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
