@@ -9,7 +9,7 @@ class Prereg < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
 
-  attr_accessible :event_id, :user_id
+  attr_accessible :event_id, :user_id, :follow_reason
 
 
   def default_url_options
