@@ -3,7 +3,7 @@
   = link_to( "You're following #{content_tag(:i, "", class: "fa fa-check")}".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
 
 - else
-  - prereg = Prereg.new
+  - prereg = Prereg.new(:event_id => event.id)
   = link_to "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, '#followModal', data: {toggle: "modal"}, class: "btn btn-block btn-inverse"
   #followModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "followModal", :role => "dialog", :tabindex => "-1"}
     .modal-header
@@ -14,7 +14,9 @@
       %p Tell us what you're interested in learning from her, and we'll let her know so she can consider it the next time she's listing an event:
       %br
       = simple_form_for(prereg) do |f|
-        = f.input :follow_reason, input_html: { class: "span12", rows: 5, placeholder: "Why are you interested in following this maker?"}
+        = f.hidden_field :event_id, value: event.id
+        = f.hidden_field :user_id, value: current_user.id
+        = f.input :follow_reason, label: "Interest", input_html: { class: "span12", rows: 5, placeholder: "Why are you interested in following this maker?"}
         = f.submit "Follow", :name => "follow_button", class: "btn btn-danger pull-right"
       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
   %br
