@@ -2,7 +2,7 @@
   - prereg = Prereg.where(user_id: current_user.id, event_id: event.id).first
   = link_to( "You're following #{content_tag(:i, "", class: "fa fa-check")}".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
 
-- else
+- elsif current_user
   - prereg = Prereg.new(:event_id => event.id)
   = link_to "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, '#followModal', data: {toggle: "modal"}, class: "btn btn-block btn-inverse"
   #followModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "followModal", :role => "dialog", :tabindex => "-1"}
@@ -19,5 +19,9 @@
         = f.input :follow_reason, label: "Interest", input_html: { class: "span12", rows: 5, placeholder: "Why are you interested in following this maker?"}
         = f.submit "Follow", :name => "follow_button", class: "btn btn-danger pull-right"
       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+
+- else
+  =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, new_prereg_path(event_id: event), class: 'btn btn-block btn-inverse')
+
   %br
   %br

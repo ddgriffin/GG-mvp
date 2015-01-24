@@ -10,7 +10,7 @@ class PreregsController < ApplicationController
 
   def new
     # @event = Event.find(params[:event_id])
-    @prereg = Prereg.new(:event_id => params[:id])
+    @prereg = Prereg.new(params[:prereg])
     # @prereg.event_id = @event.id
   end
 
