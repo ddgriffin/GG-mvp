@@ -236,7 +236,7 @@
                 = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Everyone"}'}
               ages
               #min-age.field.select
-                = editable_link_to "14", field: :age_min, resource: @apprenticeship, type: :select, data: {source: "{'14':'14','15':'15','16':'16','17':'17','18':'18' }"}
+                = editable_link_to "14", field: :age_min, resource: @apprenticeship, type: :select, data: {source: "{'14':'14','15':'15','16':'16','17':'17','18':'18','19':'19','20':'20' }"}
               \-
               #max-age.field.select
                 = editable_link_to "and Up", field: :age_max, resource: @apprenticeship, type: :select, data: {source: "{'14':'14','15':'15','16':'16','17':'17','18':'18', 100 :'and Up' }"}
