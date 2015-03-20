@@ -29,19 +29,16 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :ip_address, :latitude, :longitude
 
-  geocoded_by :ip_address
-    #:latitude => :latitude, :longitude => :longitude
-  after_validation :geocode, if: ->(obj){ obj.ip_address.present? and obj.ip_address_changed? }
-
-
-  reverse_geocoded_by :latitude, :longitude do |obj,results|
-    if geo = results.first
-      obj.city    = geo.city
-      # obj.zipcode = geo.postal_code
-      # obj.country = geo.country_code
-    end
-  end
-  after_validation :reverse_geocode
+# THIS WORKS, BUT THE LAT/LONG PULLED FROM IP'S ARE INCONSISTENT, E.G. TESTING IN AUSTIN I GOT "WOODWAY" AS MY CITY
+  # geocoded_by :ip_address
+  # after_validation :geocode, if: ->(obj){ obj.ip_address.present? and obj.ip_address_changed? }
+  #
+  # reverse_geocoded_by :latitude, :longitude do |obj,results|
+  #   if geo = results.first
+  #     obj.city    = geo.city
+  #   end
+  # end
+  # after_validation :reverse_geocode
 
 
   validates :first_name,  presence: true, length: { maximum: 20 }

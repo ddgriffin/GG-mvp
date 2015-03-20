@@ -3,7 +3,7 @@
   .container
 
     #austin_events
-      %h1 Austin Events
+      %h1 Events in Austin
       = render 'shared/nav_events'
       %br/
       %br/
@@ -50,17 +50,17 @@
           = render 'event', events: @filled_austin_events
       %br
       %br
-      %h1 Past Austin Events
-      %br
-      %br
       .row
         - unless @closed_austin_events.blank?
+          %h1 Past Events in Austin
+          %br
+          %br
           = render 'event', events: @closed_austin_events
 
 
 
     #houston_events.hide
-      %h1 Houston Events
+      %h1 Events in Houston
       = render 'shared/nav_events'
       %br/
       %br/
@@ -106,11 +106,11 @@
           = render 'event', events: @filled_houston_events
       %br
       %br
-      %h1 Past Houston Events
-      %br
-      %br
       .row
         - unless @closed_houston_events.blank?
+          %h1 Past Events in Houston
+          %br
+          %br
           = render 'event', events: @closed_houston_events
 
 
