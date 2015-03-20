@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
   after_validation :geocode, if: ->(obj){ obj.ip_address.present? and obj.ip_address_changed? }
 
 
+  reverse_geocoded_by :latitude, :longitude do |obj,results|
+    if geo = results.first
+      obj.city    = geo.city
+      # obj.zipcode = geo.postal_code
+      # obj.country = geo.country_code
+    end
+  end
+  after_validation :reverse_geocode
+
+
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
   validates_uniqueness_of :email, :case_sensitive => false, :message => 'email is already in use'

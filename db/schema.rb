@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150108231647) do
+ActiveRecord::Schema.define(:version => 20150115212019) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20150108231647) do
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "message_text"
+    t.text     "message_text"
     t.integer  "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
@@ -155,8 +155,9 @@ ActiveRecord::Schema.define(:version => 20150108231647) do
   create_table "preregs", :force => true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "follow_reason"
   end
 
   add_index "preregs", ["event_id", "user_id"], :name => "index_preregs_on_event_id_and_user_id", :unique => true
@@ -263,6 +264,7 @@ ActiveRecord::Schema.define(:version => 20150108231647) do
     t.string   "twitter"
     t.string   "stripe_customer_id"
     t.string   "city"
+    t.boolean  "welcome",                :default => false, :null => false
     t.string   "craft"
     t.string   "learning_goals"
     t.string   "maker_crush"
