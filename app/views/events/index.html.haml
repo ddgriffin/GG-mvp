@@ -50,11 +50,11 @@
           = render 'event', events: @filled_austin_events
       %br
       %br
+      %h1 Past Events in Austin
+      %br
+      %br
       .row
         - unless @closed_austin_events.blank?
-          %h1 Past Events in Austin
-          %br
-          %br
           = render 'event', events: @closed_austin_events
 
 
@@ -106,11 +106,11 @@
           = render 'event', events: @filled_houston_events
       %br
       %br
+      %h1 Past Events in Houston
+      %br
+      %br
       .row
         - unless @closed_houston_events.blank?
-          %h1 Past Events in Houston
-          %br
-          %br
           = render 'event', events: @closed_houston_events
 
 
