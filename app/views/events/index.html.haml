@@ -46,15 +46,14 @@
       .row
         - unless @austin_events.blank?
           = render 'event', events: @austin_events
-        - unless @filled_austin_events.blank?
-          = render 'event', events: @filled_austin_events
       %br
       %br
-      - unless @closed_austin_events.blank?
+      - unless @closed_austin_events.blank? && @filled_austin_events.blank?
+        %h1 Closed Events in Austin
+        %br
+        %br
         .row
-          %h1 Past Events in Austin
-          %br
-          %br
+          = render 'event', events: @filled_austin_events
           = render 'event', events: @closed_austin_events
 
 
@@ -102,15 +101,14 @@
       .row
         - unless @houston_events.blank?
           = render 'event', events: @houston_events
-        - unless @filled_houston_events.blank?
-          = render 'event', events: @filled_houston_events
       %br
       %br
-      - unless @closed_houston_events.blank?
+      - unless @closed_houston_events.blank? && @filled_houston_events.blank?
+        %h1 Closed Events in Houston
+        %br
+        %br
         .row
-          %h1 Closed Events in Houston
-          %br
-          %br
+          = render 'event', events: @filled_houston_events
           = render 'event', events: @closed_houston_events
 
 
