@@ -176,6 +176,8 @@
                     = editable_link_to "State", field: :location_state, resource: @workshop, type: :text
                   #zip.field.address
                     = editable_link_to "Zip", field: :location_zipcode, resource: @workshop, type: :text
+                  - if show
+                    = link_to "Map", "https://www.google.com/maps/search/" + @workshop.google_address, target: "_blank"
                   %br
 
             %dt
@@ -185,14 +187,14 @@
             %dd
               #gender.field.checkbox
                 - if @workshop.gender == true
-                  - gender_text = "Open to all gender identities"
+                  - gender_text = "Everyone"
                 - elsif @workshop.gender == false
                   - gender_text = "Girls/Women"
-                = editable_link_to "Describe your student(s)", field: :gender, resource: @workshop, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
+                = editable_link_to "Describe your student(s)", field: :gender, resource: @workshop, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Everyone"}'}
               ages
               #min-age.field.select
                 = editable_link_to "Min Age", field: :age_min, resource: @workshop, type: :number
-              to
+              \-
               #max-age.field.select
                 = editable_link_to "Max Age", field: :age_max, resource: @workshop, type: :number
               - if !show

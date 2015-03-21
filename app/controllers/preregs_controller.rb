@@ -9,19 +9,27 @@ class PreregsController < ApplicationController
   end
 
   def new
-    @prereg = Prereg.new
+    # @event = Event.find(params[:event_id])
+    @prereg = Prereg.new(params[:prereg])
+    # @prereg.event_id = @event.id
   end
 
   def create
-    prereg = Prereg.find_or_create_by_user_id_and_event_id!(
-      :user_id => current_user.id,
-      :event_id => params[:event_id])
 
-    prereg.deliver_prereg
-    flash[:success] = "Thanks! We'll send you an email when #{prereg.event.host_firstname} has set a new date for #{prereg.event.topic}."
-    redirect_to prereg.event.is_a?(Workshop) ?
-                    workshop_url(params[:event_id]) :
-                    apprenticeship_url(params[:event_id])
+    # prereg = Prereg.find_or_create_by_user_id_and_event_id!(
+    #   :user_id => current_user.id,
+    #   :event_id => params[:event_id])
+
+    @prereg = Prereg.new(params[:prereg])
+    puts params
+    if @prereg.save && @prereg.deliver_prereg
+      flash[:success] = "Thanks! We'll send you an email when #{@prereg.event.host_firstname} has set a new date for #{@prereg.event.topic}."
+      if @prereg.event.is_a?(Workshop)
+        redirect_to workshop_url(@prereg.event_id)
+      else
+        redirect_to apprenticeship_url(@prereg.event_id)
+      end
+    end
   end
 
   def destroy

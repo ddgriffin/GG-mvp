@@ -1,6 +1,27 @@
 - if current_user && current_user.preregistered?(event)
   - prereg = Prereg.where(user_id: current_user.id, event_id: event.id).first
-  =link_to( "You're following #{content_tag(:i, "", class: "fa fa-check")}".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
+  = link_to( "You're following #{content_tag(:i, "", class: "fa fa-check")}".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
+
+- elsif current_user
+  - prereg = Prereg.new(:event_id => event.id)
+  = link_to "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, '#followModal', data: {toggle: "modal"}, class: "btn btn-block btn-inverse"
+  #followModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "followModal", :role => "dialog", :tabindex => "-1"}
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %h3#galleryModalLabel Follow this Maker
+    .modal-body
+      %p Follow this maker to get first dibs on her future events!
+      %p Tell us what you're interested in learning from her, and we'll let her know so she can consider it the next time she's listing an event:
+      %br
+      = simple_form_for(prereg) do |f|
+        = f.hidden_field :event_id, value: event.id
+        = f.hidden_field :user_id, value: current_user.id
+        = f.input :follow_reason, label: "Interest", input_html: { class: "span12", rows: 5, placeholder: "Why are you interested in following this maker?"}
+        = f.submit "Follow", :name => "follow_button", class: "btn btn-danger pull-right"
+      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
 
 - else
-  =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block btn-inverse')
+  =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, new_prereg_path(event_id: event), class: 'btn btn-block btn-inverse')
+
+  %br
+  %br

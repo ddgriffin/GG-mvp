@@ -1,3 +1,4 @@
+/ Test comment
 - if (events||=false)
   - events.each do |event|
     .span3
@@ -11,7 +12,16 @@
             - else
               %a{ href: url_for(edit_apprenticeship_path(event)) }
                 %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
-          .box-details
+            .box-details
+              - if event.accepted?
+                %span.trapezoidshadow
+                %span.trapezoid
+                %span.traptext
+                  &nbsp;
+                  = event.spots_left
+              - elsif event.filled? || event.completed?
+
+
             - unless current_user.blank?
               - if event.user == current_user
                 - if event.started?
@@ -48,7 +58,14 @@
             - else
               %a{ href: url_for(edit_workshop_path(event)) }
                 %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
-          .box-details
+            .box-details
+              - if event.accepted?
+                %span.trapezoidshadow
+                %span.trapezoid
+                %span.traptext
+                  %p &nbsp; #{event.spots_left}
+              - elsif event.filled? || event.completed?
+
             - unless current_user.blank?
               - if event.user == current_user
                 - if event.started?

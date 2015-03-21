@@ -1,4 +1,4 @@
-- provide(:title, 'Edit Avatar')
+- provide(:title, 'Edit Profile')
 %section#admin.section.alt-grey
   .container
     .row-fluid
@@ -7,6 +7,33 @@
 
       .span10.pull-right
         .fancyform-light.form-horizontal
-          %h2 Avatar
+          %h2 Profile
+          /%h2 Profile
           = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
+
+            = f.input :craft, label: "Your craft(s)?", placeholder: "Ex: Woodworking"
+
+            = f.input :learning_goals, label: "Craft(s) you want to learn?", placeholder: "Ex: Welding, Typography, Shoemaking"
+
+            = f.input :city
+
+            = f.input :website, label: "Your website", placeholder: "Ex: www.girlsguild.com"
+
+            = f.input :bio, :as => :text, :input_html => {:rows => 8}
+
+            = f.input :facebook
+
+            = f.input :twitter
+
+            / = f.input :maker_crush, label: "Know someone you'd like to work with already?", placeholder: "Ex: Natalie Davis of Canoe"
+
+
+
+
+
+
+            /= f.input :webshop
+            /= f.input :business
+            /= f.input :photos
+
             = render 'avatar_fields', f: f

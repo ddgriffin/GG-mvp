@@ -9,7 +9,7 @@ class Prereg < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
 
-  attr_accessible :event_id, :user_id
+  attr_accessible :event_id, :user_id, :follow_reason
 
 
   def default_url_options
@@ -23,17 +23,26 @@ class Prereg < ActiveRecord::Base
   def deliver_prereg
     return false unless valid?
     Pony.mail({
-                  :to => "#{event.user.name}<#{event.user.email}>",
+                  :to => "#{self.event.user.name}<#{self.event.user.email}>",
                   :from => "Diana & Cheyenne<hello@girlsguild.com>",
                   :reply_to => "GirlsGuild<hello@girlsguild.com>",
                   :subject => "#{user.first_name} followed you on GirlsGuild!",
-                  :html_body => %(<h1>Yay #{event.host_firstname}!</h1> <p>#{user.first_name} is a #{user.age}-year-old who wants to keep tabs on your future events! They were checking out your #{event.type}, <a href="#{url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id)}">#{event.topic}</a>, and signed up to follow you in case you decide to offer an apprenticeship or workshop again in the future. If you do, we'll give #{user.first_name} first dibs on signing up for it, before we announce it to the whole community.</p>
+                  :html_body => %(<h1>Yay #{self.event.host_firstname}!</h1> <p>#{user.first_name} is a #{user.age}-year-old who wants to keep tabs on your future events! They were checking out your #{event.type}, <a href="#{url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id)}">#{event.topic}</a>, and signed up to follow you in case you decide to offer an apprenticeship or workshop again in the future. If you do, we'll give #{user.first_name} first dibs on signing up for it, before we announce it to the whole community.</p>
+                      <p>#{self.include_follow_reason}</p>
                       <p>That makes a total of #{event.preregs.count} follower(s) who are interested in your events.</p>
                       <p>You can see who else is following you by visiting your <a href="#{dashboard_url}">your dashboard</a>.</p>
                       <p>~<br/>xo,</br>The GirlsGuild Team</p>),
                   :bcc => "hello@girlsguild.com",
               })
     return true
+  end
+
+  def include_follow_reason
+    if follow_reason?
+      "Here's what #{user.first_name} is excited to learn from you:</p> <p style='font-style:italic;'>#{self.follow_reason}"
+    else
+      ""
+    end
   end
 
 end

@@ -46,7 +46,7 @@ class DashboardsController < ApplicationController
   def update_avatar
     @user = User.find(current_user.id)
     if @user.update_attributes(params[:user])
-      redirect_to request.referrer, flash: { success: "Your avatar was successfully updated" }
+      redirect_to request.referrer, flash: { success: "Thanks for letting us know  -  we'll try our best to make all your wildest dreams come true!" }
     else
       redirect_to request.referrer, flash: { warning: "The following error(s) occurred: #{@user.errors.full_messages}"}
     end

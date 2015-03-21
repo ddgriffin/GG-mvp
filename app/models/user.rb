@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :ip_address, :latitude, :longitude
+
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :craft, :learning_goals, :maker_crush, :ip_address, :latitude, :longitude
 
 # THIS WORKS, BUT THE LAT/LONG PULLED FROM IP'S ARE INCONSISTENT, E.G. TESTING IN AUSTIN I GOT "WOODWAY" AS MY CITY
   # geocoded_by :ip_address
