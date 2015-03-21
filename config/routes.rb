@@ -26,6 +26,8 @@ GirlsGuild::Application.routes.draw do
   match '/new_parent_app_signup', to: 'app_signups#new_parent_app_signup'
 
   devise_for :users, :admins
+  # app/config/routes.rb
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   resources :galleries, only: [:new, :create, :destroy]
 

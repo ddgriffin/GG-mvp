@@ -27,7 +27,20 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :craft, :learning_goals, :maker_crush
+
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop, :city, :craft, :learning_goals, :maker_crush, :ip_address, :latitude, :longitude
+
+# THIS WORKS, BUT THE LAT/LONG PULLED FROM IP'S ARE INCONSISTENT, E.G. TESTING IN AUSTIN I GOT "WOODWAY" AS MY CITY
+  # geocoded_by :ip_address
+  # after_validation :geocode, if: ->(obj){ obj.ip_address.present? and obj.ip_address_changed? }
+  #
+  # reverse_geocoded_by :latitude, :longitude do |obj,results|
+  #   if geo = results.first
+  #     obj.city    = geo.city
+  #   end
+  # end
+  # after_validation :reverse_geocode
+
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }

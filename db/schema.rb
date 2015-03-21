@@ -268,6 +268,9 @@ ActiveRecord::Schema.define(:version => 20150115212019) do
     t.string   "craft"
     t.string   "learning_goals"
     t.string   "maker_crush"
+    t.string   "ip_address"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
