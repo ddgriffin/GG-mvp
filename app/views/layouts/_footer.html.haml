@@ -14,20 +14,23 @@
           %li
             %i.fa.fa-twitter
             %a{:href => "http://twitter.com/thegirlsguild/", :target => "_blank"} Twitter
+            / %span{:style => ""}
+            /   %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @thegirlsguild
           %li
             %i.fa.fa-facebook
             %a{:href => "http://facebook.com/girlsguild", :target => "_blank"} Facebook
-          %li
-            %i.fa.fa-pinterest
-            %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
+            .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:0px 0px 0px 20px;"}
+          / %li
+          /   %i.fa.fa-pinterest
+          /   %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
           %li
             %i.fa.fa-instagram
             %a{:href => "http://instagram.com/girlsguild", :target => "_blank"} Instagram
-          %li
-            .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 0px 0px 47px;"}
-          %li
-            %div{:style => "margin:5px 0px 5px 15px;"}
-              %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @thegirlsguild
+
+          %br
+          %span#siteseal{:style => "margin-left: -25px"}
+            %script{:src => "https://seal.godaddy.com/getSeal?sealID=yETmUQVWpzMTp9r131IOmPF7Hhgxs5M20i8vsWP6a6zGeGhEaoUDKwfy3F3H", :type => "text/javascript"}
+
       .span4
         %h3 GirlsGuild
         %ul.icons
